@@ -36,7 +36,6 @@ protected:
 	// Called when the game starts or when spawned
 
 	virtual void NativeConstruct() override;
-	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime);
 
 	UFUNCTION()
 	void OnSkillButtonUnlocked(int32 ButtonIndex);
