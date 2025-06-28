@@ -1,192 +1,57 @@
-# Skill Tree UI System (Unreal Engine 5)
+# Unreal Engine Skill Tree UI System
 
-# 
+This project implements a modular, hold-to-unlock skill tree in Unreal Engine 5 using C++ and UMG.
 
-# This system implements a modular, hold-to-unlock skill tree in Unreal Engine 5 using UMG widgets and C++. It includes:
+---
 
-# 
+## 📦 Components Overview
 
-# &nbsp;   A SkillTree widget managing multiple skill buttons.
+### `USkillTree`
+The main widget that creates and manages skill buttons.
 
-# 
+- Dynamically creates buttons using `NodeLabels` and `NodeCosts`.
+- Ensures default costs are applied if some are missing.
+- Unlocks buttons sequentially.
+- Deducts player money on unlock and updates the menu display.
 
-# &nbsp;   SkillTreeButton UI elements that must be held to unlock.
+### `USkillTreeButton`
+An individual skill node with hold-to-unlock logic.
 
-# 
+- Displays the skill label and cost.
+- Requires a button press to be held for `MaxHoldTime`.
+- Displays progress bar while holding.
+- Unlocks itself and triggers the next skill if player has enough funds.
+- Turns green when unlocked; flashes red when funds are insufficient.
 
-# &nbsp;   A SkillTreeMenu that updates and displays player money.
+### `USkillTreeMenu`
+The parent menu UI that contains the skill tree.
 
-# 
+- Displays player money.
+- Updates whenever a skill is unlocked.
 
-# &nbsp;   Support for chaining skills and visual feedback (color, progress bar, and cost labels).
+---
 
-# 
+## 🔁 Skill Unlock Flow
 
-# 📦 Components Overview
+1. On construction, the `SkillTree` spawns buttons for each node.
+2. The first button is enabled, others are locked.
+3. Player holds a button:
+   - Progress bar fills over time.
+   - When full:
+     - If funds are enough → unlocks, deducts money, enables next.
+     - If not → flashes red, stays locked.
+4. Button color and state visually reflect unlock status.
 
-# USkillTree
+---
 
-# 
+## 🎮 Input Handling
 
-# &nbsp;   Manages a dynamic list of skill buttons.
+Press E to toggle the menu on / off
 
-# 
+## ✅ To Do
 
-# &nbsp;   Handles player money deduction and progression unlocking.
+    Add support for branching skill trees (dependencies).
 
-# 
+    Save/load skill tree state.
 
-# &nbsp;   Controls visibility and communicates with its parent SkillTreeMenu.
-
-# 
-
-# Important Properties
-
-# 
-
-# &nbsp;   NodeLabels: List of skill names.
-
-# 
-
-# &nbsp;   NodeCosts: Cost of each skill.
-
-# 
-
-# &nbsp;   SkillTreeButtonClass: Class for creating individual skill buttons.
-
-# 
-
-# &nbsp;   ButtonContainer: Vertical box holding buttons.
-
-# 
-
-# &nbsp;   PlayerChar: Cached reference to the owning character.
-
-# 
-
-# USkillTreeButton
-
-# 
-
-# &nbsp;   Individual button representing a skill node.
-
-# 
-
-# &nbsp;   Requires the player to hold the button to unlock.
-
-# 
-
-# &nbsp;   Visuals include progress bar, cost label, and feedback on unlock/failure.
-
-# 
-
-# Key Features
-
-# 
-
-# &nbsp;   Green button = unlocked.
-
-# 
-
-# &nbsp;   Red flash = insufficient funds.
-
-# 
-
-# &nbsp;   Progress bar shows hold duration.
-
-# 
-
-# USkillTreeMenu
-
-# 
-
-# &nbsp;   Container UI holding the SkillTree and player money text.
-
-# 
-
-# &nbsp;   On NativeConstruct, binds to the player character and updates money display.
-
-# 
-
-# 🔁 Skill Unlock Flow
-
-# 
-
-# &nbsp;   Skill tree spawns buttons based on NodeLabels.
-
-# 
-
-# &nbsp;   Only the first skill button is enabled at the start.
-
-# 
-
-# &nbsp;   Player holds a button → progress bar fills.
-
-# 
-
-# &nbsp;   On completion:
-
-# 
-
-# &nbsp;       If enough funds → unlocks button and enables the next one.
-
-# 
-
-# &nbsp;       If not enough funds → flashes red.
-
-# 
-
-# &nbsp;   UI updates player’s available money in real time.
-
-# 
-
-# 🧠 Input + Widget Control
-
-# 
-
-# In the character:
-
-# 
-
-# SkillTreeInstance = CreateWidget<UUserWidget>(...);
-
-# SkillTreeInstance->AddToViewport();
-
-# 
-
-# FInputModeGameAndUI InputMode;
-
-# InputMode.SetWidgetToFocus(SkillTreeInstance->TakeWidget());
-
-# PlayerController->SetInputMode(InputMode);
-
-# PlayerController->bShowMouseCursor = true;
-
-# 
-
-# To hide without destroying:
-
-# 
-
-# SkillTreeInstance->SetVisibility(ESlateVisibility::Hidden);
-
-# 
-
-# 💡 Notes
-
-# 
-
-# &nbsp;   NodeCosts will automatically pad missing entries with a default cost.
-
-# 
-
-# &nbsp;   The progress bar and unlock animation are handled entirely in the button itself.
-
-# 
-
-# &nbsp;   You can reuse SkillTree in multiple menus since it doesn’t hardcode player refs.
-
-# 
-
-# &nbsp;   Button styling (green/red) uses Slate brush manipulation.
-
+    Add animations or SFX for feedback.
