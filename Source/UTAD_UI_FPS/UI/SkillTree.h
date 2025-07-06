@@ -1,3 +1,7 @@
+/**
+ *	USkillTree
+ *	Definition of the branch with X buttons
+ */
 #pragma once
 
 #include "CoreMinimal.h"

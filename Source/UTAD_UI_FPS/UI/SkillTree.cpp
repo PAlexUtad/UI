@@ -1,3 +1,9 @@
+
+/**
+ *	USkillTree
+ *	Implementation of the branch with X buttons
+ */
+ 
 #include "SkillTree.h"
 
 #include "SkillTreeButton.h"

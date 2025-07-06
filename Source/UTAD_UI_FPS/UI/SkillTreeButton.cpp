@@ -1,5 +1,9 @@
-// SkillTreeButton.cpp
 
+/**
+ *	USkillTreeButton
+ *	Implementation of the button unlocking abilities
+ */
+ 
 #include "SkillTreeButton.h"
 #include "Components/Button.h"
 #include "Components/ProgressBar.h"

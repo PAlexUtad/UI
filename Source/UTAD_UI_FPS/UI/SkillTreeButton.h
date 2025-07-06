@@ -1,4 +1,7 @@
-// SkillTreeButton.h
+/**
+ *	USkillTreeButton
+ *	Definition of the button unlocking abilities
+ */
 #pragma once
 
 #include "CoreMinimal.h"

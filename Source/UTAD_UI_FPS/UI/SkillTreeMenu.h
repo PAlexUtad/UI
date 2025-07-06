@@ -1,3 +1,7 @@
+/**
+ *	SkillTreeMenu
+ *	Definition of the menu containing the branches
+ */
 #pragma once
 
 #include "CoreMinimal.h"
@@ -7,9 +11,7 @@
 class UTextBlock;
 class AUTAD_UI_FPSCharacter;
 
-/**
- * 
- */
+
 UCLASS()
 class UTAD_UI_FPS_API USkillTreeMenu : public UUserWidget
 {
